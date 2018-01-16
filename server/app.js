@@ -5,20 +5,23 @@ var logger = require('morgan'); // HTTP request logger middleware
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var mongoose = require('mongoose');
 
 var config = require('./config')();
-
 var index = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
 
+// connect to the database
+mongoose.connect(config.db);
+
 // session support
-// app.use(session({
-//   resave: false, // don't save session if unmodified
-//   saveUninitialized: false, // don't create session until something stored
-//   secret: '44E3927928E3A25DE31A8FA1B6A13'
-// }));
+app.use(session({
+  resave: false, // don't save session if unmodified
+  saveUninitialized: false, // don't create session until something stored
+  secret: '44E3927928E3A25DE31A8FA1B6A13'
+}));
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
