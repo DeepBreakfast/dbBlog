@@ -1,5 +1,5 @@
 # Full Stack JavaScript Blog Web App
-* Front end: Vue.js + Element + Axios (requests)
+* Front end: Vue.js (framework) + Element (UI toolkit) + Axios (requests)
 * Back end: Express.js (router, controllers) + MongoDB/Mongoose (DB/ODM)
 * Build tool: Parcel
 * Testing: Jade
