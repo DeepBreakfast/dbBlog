@@ -11,7 +11,6 @@ Features:
     * Fields: Image, body,
   * Comment
 * Control panel
-* Single owner blog
 
 
 Server is a simple REST API connected to MongoDB

@@ -17,6 +17,6 @@ var config = {
       db: 'mongodb://localhost/' + dbName
   }
 };
-module.exports = function(mode) {
+module.exports = (mode) => {
     return config[mode || process.argv[2] || 'local'] || config.local;
 };

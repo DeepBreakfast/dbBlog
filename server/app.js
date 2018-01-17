@@ -9,6 +9,9 @@ var mongoose = require('mongoose');
 
 var config = require('./config')();
 var index = require('./routes/index');
+var images = require('./routes/images');
+var posts = require('./routes/posts');
+var tags = require('./routes/tags');
 var users = require('./routes/users');
 
 var app = express();
@@ -31,18 +34,22 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// routes
 app.use('/', index);
+app.use('/images', images);
+app.use('/posts', posts);
+app.use('/tags', tags);
 app.use('/users', users);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
@@ -51,5 +58,7 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.listen(config.port, () => console.log('Listening on port ' + config.port));
 
 module.exports = app;
