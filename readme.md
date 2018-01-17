@@ -2,7 +2,7 @@
 * Front end: Vue.js (framework) + Element (UI toolkit) + Axios (requests)
 * Back end: Express.js (router, controllers) + MongoDB/Mongoose (DB/ODM)
 * Build tool: Parcel
-* Testing: Jade
+* Testing: Mocha
 
 Features:
 * Models:
