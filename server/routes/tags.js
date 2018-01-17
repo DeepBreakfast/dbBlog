@@ -1,20 +1,25 @@
 var express = require('express');
 var router = express.Router();
+var tagController = require('../controllers/tag');
 
 router.get('/', (req, res, next) => {
-  res.send('get all tags');
+  tagController.list(req, res);
 });
 
 router.get('/:id', (req, res, next) => {
-  res.send('get tag by id');
+  tagController.get(req, res);
 });
 
 router.post('/', (req, res, next) => {
-  res.send('create tag');
+  tagController.create(req, res);
 });
 
-router.post('/:id', (req, res, next) => ) {
-  res.send('update tag');
+router.post('/:id', (req, res, next) => {
+  tagController.update(req, res);
+});
+
+router.post('/:id/delete', (req, res, next) => {
+  tagController.delete(req, res);
 });
 
 module.exports = router;

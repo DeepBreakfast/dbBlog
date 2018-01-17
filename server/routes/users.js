@@ -1,24 +1,29 @@
 var express = require('express');
 var router = express.Router();
+var userController = require('../controllers/user');
 
 router.get('/', (req, res, next) => {
-  res.send('get all users');
+  userController.list(req, res);
 });
 
 router.get('/:id', (req, res, next) => {
-  res.send('get user by id');
+  userController.get(req, res);
 });
 
 router.get('/:id/posts', (req, res, next) => {
-  res.send('get all posts by user');
+  userController.listPosts(req, res);
 });
 
 router.post('/', (req, res, next) => {
-  res.send('create user');
+  userController.create(req, res);
 });
 
 router.post('/:id', (req, res, next) => {
-  res.send('update user');
+  userController.update(req, res);
+});
+
+router.post('/:id/delete', (req, res, next) => {
+  userController.delete(req, res);
 });
 
 module.exports = router;

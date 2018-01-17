@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var postSchema = new Schema({
-  author: {type: Schema.Types.ObjectId, ref: 'Author'}
+  author: {type: Schema.Types.ObjectId, ref: 'Author'},
   title: String,
   content: String,
   image: {type: Schema.Types.ObjectId, ref: 'Image'},
