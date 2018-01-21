@@ -1,20 +1,20 @@
-var dbName = 'fsjsblog';
+var dbName = 'dbblog';
 
 var config = {
   local: {
-      mode: 'local',
-      port: 3000,
-      db: 'mongodb://localhost/' + dbName
+    mode: 'local',
+    port: 3000,
+    db: 'mongodb://localhost/' + dbName
   },
   staging: {
-      mode: 'staging',
-      port: 4000,
-      db: 'mongodb://localhost/' + dbName
+    mode: 'staging',
+    port: 4000,
+    db: 'mongodb://localhost/' + dbName
   },
   production: {
-      mode: 'production',
-      port: 5000,
-      db: 'mongodb://localhost/' + dbName
+    mode: 'production',
+    port: 5000,
+    db: 'mongodb://localhost/' + dbName
   }
 };
 module.exports = (mode) => {
