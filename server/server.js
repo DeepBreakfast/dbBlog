@@ -1,35 +1,34 @@
 var express = require('express');
-var mongoose = require('mongoose');
-var apiRouter = require('./api/apiRouter');
-var config = require('./config/config')();
-// var auth = require('./auth/routes');
-var logger = require('./utilities/logger');
-
 var app = express();
+var api = require('./api/api');
+var config = require('./config/config');
+var logger = require('./util/logger');
+// var auth = require('./auth/routes');
+logger.log(config);
+require('mongoose').connect(config.db.url);
 
-// connect to the database
-mongoose.connect(config.db);
-
+if (config.seed) {
+  require('./util/seed');
+}
 // setup the app middlware
 require('./middleware/appMiddleware')(app);
 
 // setup the api
-app.use('/api', apiRouter);
+app.use('/api', api);
 // app.use('/auth', auth);
 
 // error handler
 app.use((err, req, res, next) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
+  // if error thrown from jwt validation check
+  if (err.name === 'UnauthorizedError') {
+    res.status(401).send('Invalid token');
+    return;
+  }
+  logger.error(err.stack);
   res.render('500 Internal Server Error');
 });
 
 app.listen(config.port);
-
 logger.log('listening on http://localhost:' + config.port);
 
 // export the app for testing

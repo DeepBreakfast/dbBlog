@@ -1,22 +1,36 @@
+var _ = require('lodash');
+
 var dbName = 'dbblog';
 
 var config = {
-  local: {
-    mode: 'local',
-    port: 3000,
-    db: 'mongodb://localhost/' + dbName
-  },
-  staging: {
-    mode: 'staging',
-    port: 4000,
-    db: 'mongodb://localhost/' + dbName
-  },
-  production: {
-    mode: 'production',
-    port: 5000,
-    db: 'mongodb://localhost/' + dbName
+  dev: 'dev',
+  test: 'test',
+  prod: 'prod',
+  port: process.env.PORT || 3000,
+  // 10 days in minutes
+  expireTime: 24 * 60 * 10,
+  secrets: {
+    jwt: process.env.JWT || 'gumball'
   }
-};
-module.exports = (mode) => {
-    return config[mode || process.argv[2] || 'local'] || config.local;
-};
+}
+
+process.env.NODE_ENV = process.env.NODE_ENV || config.dev;
+config.env = process.env.NODE_ENV;
+
+var envConfig;
+// require could error out if
+// the file don't exist so lets try this statement
+// and fallback to an empty object if it does error out
+try {
+  envConfig = require('./' + config.env);
+  // just making sure the require actually
+  // got something back :)
+  envConfig = envConfig || {};
+} catch(e) {
+  envConfig = {};
+}
+
+// merge the two config files together
+// the envConfig file will overwrite properties
+// on the config object
+module.exports = _.merge(config, envConfig);

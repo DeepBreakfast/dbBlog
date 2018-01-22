@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "nodemon server.js",
-    "seed": "node utilities/seed.js"
+    "seed": "node utilities/seed.js",
+    "test": "mocha --timeout 10000"
   },
   "dependencies": {
     "body-parser": "~1.18.2",
@@ -22,6 +23,8 @@
     "serve-favicon": "~2.4.5"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
     "mocha": "^4.1.0",
     "nodemon": "^1.14.11"
   }

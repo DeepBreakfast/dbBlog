@@ -1,5 +1,7 @@
 Run `npm install`
 
+Configure the server in the file config/config.js
+
 Seed the test db with
 
 `npm run seed`
