@@ -16,11 +16,10 @@ exports.list = (req, res) => {
 };
 
 exports.get = (req, res) => {
-    User.findById(req.params.id, (err, user) => {
-        if(err) res.send(err);
-        //If no errors, send it back to the client
-        res.json(user);
-    });
+  User.findById(req.params.id, (err, user) => {
+    if (err) res.send(err);
+    res.json(user);
+  });
 }
 
 exports.listPosts = (req, res) => {
@@ -28,9 +27,18 @@ exports.listPosts = (req, res) => {
 };
 
 exports.update = (req, res) => {
-  res.send('update user');
+  User.findById(req.params.id, (err, user) => {
+    if(err) res.send(err);
+    Object.assign(user, req.body).save((err, user) => {
+      if (err) res.send(err);
+      res.json(user);
+    });
+  });
 };
 
 exports.delete = (req, res) => {
-  res.send('delete user');
+  User.remove({_id: req.params.id}, (err, user) => {
+    if (err) res.send(err);
+    res.json(user);
+  });
 };
